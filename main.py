@@ -1,23 +1,19 @@
 import flet as ft
-import os  
-#from home import home_main 
+import os 
 
 # Obtener la contraseña desde la variable de entorno
-PASSWORD = os.getenv("APP_PASSWORD_DOV", "defaultPassword")
+PASSWORD = os.getenv("APP_PASSWORD_DOV", "defaultPassword") 
 
 def main(page: ft.Page):
-    print("La aplicación está arrancando...")  
     page.title = "Aplicación Protegida"
 
     # Función de autenticación
     def verificar_password(e):
-        print("Verificando la contraseña...") 
         if password_input.value == PASSWORD:
-            print("Contraseña correcta, cargando el contenido de la aplicación...")
-            page.controls.clear()
-            ft.TextField(password=True, hint_text="Entramos en la página")
-            #home_main(page)  
-            page.update() 
+            print("Contraseña correcta")
+            page.controls.clear()  
+            page.add(ft.Text("Bienvenido a la aplicación!")) 
+            page.update()  
         else:
             error_message.value = "Contraseña incorrecta"
             page.update()  
@@ -42,7 +38,7 @@ def main(page: ft.Page):
 
     # Añadir el formulario de login a la página al inicio
     page.add(login_form)
-    page.update()  
+    page.update() 
 
 # Ejecutar el servidor web
 ft.app(target=main)
