@@ -1,5 +1,6 @@
 import flet as ft
 import os 
+from home import home_main 
 
 # Obtener la contraseña desde la variable de entorno
 PASSWORD = os.getenv("APP_PASSWORD_DOV", "defaultPassword") 
@@ -11,9 +12,9 @@ def main(page: ft.Page):
     def verificar_password(e):
         if password_input.value == PASSWORD:
             print("Contraseña correcta")
-            page.controls.clear()  
-            page.add(ft.Text("Bienvenido a la aplicación!")) 
-            page.update()  
+            login_form.visible = False  
+            page.update() 
+            home_main(page)
         else:
             error_message.value = "Contraseña incorrecta"
             page.update()  
