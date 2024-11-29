@@ -1,1 +1,9 @@
-flet==0.22.*
+buildozer==1.5.0
+Cython==3.0.11
+distlib==0.3.9
+filelock==3.16.1
+pexpect==4.9.0
+platformdirs==4.3.6
+ptyprocess==0.7.0
+sh==2.1.0
+virtualenv==20.27.1
