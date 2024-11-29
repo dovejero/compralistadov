@@ -10,7 +10,7 @@ def main(page: ft.Page):
     def verificar_password(e):
         if password_input.value == PASSWORD:
             page.clean()  # Limpia la página
-            main(page)  # Llama nuevamente a la función principal para mostrar el contenido
+            home_main(page)  # Llama nuevamente a la función principal para mostrar el contenido
         else:
             error_message.value = "Contraseña incorrecta"
             page.update()
