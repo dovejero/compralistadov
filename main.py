@@ -12,11 +12,11 @@ def main(page: ft.Page):
     def verificar_password(e):
         if password_input.value == PASSWORD:
             login_form.visible = False  # Ocultar el formulario de login
+            page.update()  # Actualizar la página para reflejar el cambio de visibilidad
             page.add(main_content)  # Mostrar el contenido principal
-            page.update()  # Actualizar la página
         else:
             error_message.value = "Contraseña incorrecta"
-            page.update()
+            page.update()  # Actualizar la página con el mensaje de error
 
     # Elementos de la pantalla de login
     password_input = ft.TextField(password=True, hint_text="Introduce la contraseña")
@@ -37,9 +37,12 @@ def main(page: ft.Page):
     )
 
     # Contenido principal que se muestra después del login (puedes modificar este contenido)
-    main_content = ft.Text("Contenido de la aplicación", size=24)
+    main_content = ft.Column([
+        ft.Text("Contenido de la aplicación", size=24),
+        # Aquí puedes agregar más controles que quieras mostrar después de la autenticación
+    ])
 
-    # Añadir el formulario de login a la página
+    # Añadir el formulario de login a la página al inicio
     page.add(login_form)
 
 # Ejecutar el servidor web sin especificar `view`
