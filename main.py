@@ -4,7 +4,10 @@ from home import main
 
 # Obtener la contraseña desde la variable de entorno
 PASSWORD = os.getenv("APP_PASSWORD_DOV", "defaultPassword")  # "defaultPassword" es el valor por defecto si no está configurada la variable
+PRUEBA = os.getenv("APP_PRUEBA_DOV", "defaultPassword")
 
+print("Contraseña desde la variable de entorno:", PRUEBA)
+ 
 def main(page: ft.Page):
     page.title = "Aplicación Protegida"
 
