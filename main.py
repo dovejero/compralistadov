@@ -1,5 +1,5 @@
 import flet as ft
-from home import main
+from home import home_main
 
 PASSWORD = "proyectoDAM"
 
