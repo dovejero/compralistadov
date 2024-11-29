@@ -11,9 +11,9 @@ def main(page: ft.Page):
     # Función de autenticación
     def verificar_password(e):
         if password_input.value == PASSWORD:
-            #login_form.visible = False  # Ocultar el formulario de login
-            #page.update()  # Actualizar la página para reflejar el cambio de visibilidad
-            home_main(page)  # Mostrar el contenido principal llamando a la función main de home.py
+            # Limpiar la página actual y agregar el contenido de home.py
+            page.controls.clear()  # Limpia todos los controles de la página
+            home_main(page)  # Llama la función main de home.py para mostrar el contenido principal
         else:
             error_message.value = "Contraseña incorrecta"
             page.update()  # Actualizar la página con el mensaje de error
