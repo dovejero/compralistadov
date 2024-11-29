@@ -1,5 +1,6 @@
 import flet as ft
 import os  # Importar el módulo os para trabajar con variables de entorno
+from home import main as home_main  # Importar la función 'main' de 'home.py'
 
 # Obtener la contraseña desde la variable de entorno
 PASSWORD = os.getenv("APP_PASSWORD_DOV", "defaultPassword")  # "defaultPassword" es el valor por defecto si no está configurada la variable
@@ -7,13 +8,13 @@ PASSWORD = os.getenv("APP_PASSWORD_DOV", "defaultPassword")  # "defaultPassword"
 def main(page: ft.Page):
     print("La aplicación está arrancando...")
     
-    page.title = "Aplicación Protegida"
+    page.title = "Compra Lista DoV"
     
     # Función de autenticación
     def verificar_password(e):
         if password_input.value == PASSWORD:
             login_form.visible = False  # Ocultar el formulario de login
-            page.add(main_content)  # Mostrar el contenido principal
+            home_main(page)  # Llamar a la función main de home.py para cargar la vista principal
             page.update()  # Actualizar la página
         else:
             error_message.value = "Contraseña incorrecta"
@@ -37,10 +38,7 @@ def main(page: ft.Page):
         spacing=20,
     )
 
-    # Contenido principal que se muestra después del login (puedes modificar este contenido)
-    main_content = ft.Text("Contenido de la aplicación", size=24)
-
-    # Añadir el formulario de login a la página (asegurándonos de que lo estamos añadiendo al principio)
+    # Añadir el formulario de login a la página
     page.add(login_form)
 
 # Ejecutar el servidor web sin especificar `view`
