@@ -1,3 +1,5 @@
+# home.py -- Archivo principal en el cual cargan los componentes
+
 import flet as ft
 from categorias import categoryView
 from establecimientos import storeView
@@ -12,10 +14,9 @@ def home_main(page: ft.Page):
     page.scroll = "adaptive"
     page.theme_mode = ft.ThemeMode.DARK
 
-    # Eliminar la configuración del tamaño de la ventana ya que no es válida en entornos web
-    # if not page.web:  # Esta comprobación asegura que no intentes usar page.window en la web
-    #    page.window_width = 650  
-    #    page.window_height = 768  
+    # Configurar el tamaño de la ventana
+    page.window.width = 650  
+    page.window.height = 768  
 
     # Contenedor para el contenido dinámico
     content_container = ft.Column()
@@ -59,7 +60,7 @@ def home_main(page: ft.Page):
     # Barra de navegación con Tabs
     tabs = ft.Tabs(
         selected_index=0,  
-        tabs=[  
+        tabs=[
             ft.Tab(text="Estadísticas"),
             ft.Tab(text="Lista Productos"),
             ft.Tab(text="Cesta"),
@@ -88,5 +89,4 @@ def home_main(page: ft.Page):
     # Añadir el layout al 'page'
     page.add(layout)
 
-# Ejecutar la aplicación
 ft.app(target=home_main)
