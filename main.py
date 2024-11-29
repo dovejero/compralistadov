@@ -1,7 +1,9 @@
 import flet as ft
+import os  # Importar el módulo os para trabajar con variables de entorno
 from home import main
 
-PASSWORD = "proyectoDAM"
+# Obtener la contraseña desde la variable de entorno
+PASSWORD = os.getenv("APP_PASSWORD_DOV", "defaultPassword")  # "defaultPassword" es el valor por defecto si no está configurada la variable
 
 def main(page: ft.Page):
     page.title = "Aplicación Protegida"
@@ -36,4 +38,4 @@ def main(page: ft.Page):
     )
 
 # Ejecutar el servidor web sin especificar `view`
-ft.app(target=main) 
+ft.app(target=main)

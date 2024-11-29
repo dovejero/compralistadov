@@ -14,9 +14,10 @@ def main(page: ft.Page):
     page.scroll = "adaptive"
     page.theme_mode = ft.ThemeMode.DARK
 
-    # Configurar el tamaño de la ventana
-    page.window.width = 650  
-    page.window.height = 768  
+    # Configurar el tamaño de la ventana solo si no es un entorno web
+    if not page.web:  # Esta comprobación asegura que no intentes usar page.window en la web
+        page.window_width = 650  
+        page.window_height = 768  
 
     # Contenedor para el contenido dinámico
     content_container = ft.Column()
@@ -89,4 +90,5 @@ def main(page: ft.Page):
     # Añadir el layout al 'page'
     page.add(layout)
 
+# Ejecutar el servidor web
 ft.app(target=main)
