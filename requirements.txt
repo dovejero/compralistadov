@@ -7,4 +7,4 @@ platformdirs==4.3.6
 ptyprocess==0.7.0
 sh==2.1.0
 virtualenv==20.27.1
-flet==0.8.0
+flet==0.22.*
