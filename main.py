@@ -12,8 +12,7 @@ def main(page: ft.Page):
     def verificar_password(e):
         if password_input.value == PASSWORD:
             print("Contraseña correcta")
-            login_form.visible = False  
-            page.update() 
+            page.clean()
             home_main(page)
         else:
             error_message.value = "Contraseña incorrecta"
