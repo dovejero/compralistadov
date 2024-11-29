@@ -1,25 +1,26 @@
 import flet as ft
-import os  # Importar el módulo os para trabajar con variables de entorno
-from home import home_main  # Asegurémonos de importar la función correcta
+import os  
+#from home import home_main 
 
 # Obtener la contraseña desde la variable de entorno
-PASSWORD = os.getenv("APP_PASSWORD_DOV", "defaultPassword")  # "defaultPassword" es el valor por defecto si no está configurada la variable
+PASSWORD = os.getenv("APP_PASSWORD_DOV", "defaultPassword")
 
 def main(page: ft.Page):
-    print("La aplicación está arrancando...")  # Mensaje de depuración para ver si la función main se ejecuta
+    print("La aplicación está arrancando...")  
     page.title = "Aplicación Protegida"
 
     # Función de autenticación
     def verificar_password(e):
-        print("Verificando la contraseña...")  # Mensaje para saber si estamos dentro de la función de verificación
+        print("Verificando la contraseña...") 
         if password_input.value == PASSWORD:
             print("Contraseña correcta, cargando el contenido de la aplicación...")
-            page.controls.clear()  # Limpiar la página para asegurar que no haya conflictos de contenido
-            home_main(page)  # Cargar la vista principal de home.py
-            page.update()  # Actualizar la página después de cargar el contenido
+            page.controls.clear()
+            ft.TextField(password=True, hint_text="Entramos en la página")
+            #home_main(page)  
+            page.update() 
         else:
             error_message.value = "Contraseña incorrecta"
-            page.update()  # Actualizar la página con el mensaje de error
+            page.update()  
 
     # Elementos de la pantalla de login
     password_input = ft.TextField(password=True, hint_text="Introduce la contraseña")
@@ -41,7 +42,7 @@ def main(page: ft.Page):
 
     # Añadir el formulario de login a la página al inicio
     page.add(login_form)
-    page.update()  # Asegurarse de que la página se actualiza con el formulario
+    page.update()  
 
 # Ejecutar el servidor web
 ft.app(target=main)
