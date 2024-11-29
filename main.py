@@ -1,6 +1,5 @@
 import flet as ft
-import os  # Importar el módulo os para trabajar con variables de entorno
-from home import main as home_main  # Importamos la función 'main' desde 'home.py'
+import os
 
 # Obtener la contraseña desde la variable de entorno
 PASSWORD = os.getenv("APP_PASSWORD_DOV", "defaultPassword")  # "defaultPassword" es el valor por defecto si no está configurada la variable
@@ -11,9 +10,9 @@ def main(page: ft.Page):
     # Función de autenticación
     def verificar_password(e):
         if password_input.value == PASSWORD:
-            # Limpiar la página actual y agregar el contenido de home.py
-            page.controls.clear()  # Limpia todos los controles de la página
-            home_main(page)  # Llama la función main de home.py para mostrar el contenido principal
+            # Limpiar la página y añadir texto de bienvenida
+            page.controls.clear()  # Limpiar la página
+            page.add(ft.Text("Bienvenido a la aplicación", size=24))  # Mostrar el contenido después del login
         else:
             error_message.value = "Contraseña incorrecta"
             page.update()  # Actualizar la página con el mensaje de error
