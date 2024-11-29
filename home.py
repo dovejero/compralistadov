@@ -12,7 +12,7 @@ from graficas import chartView
 def home_main(page: ft.Page):
     page.title = "<Compra Lista>"
     page.scroll = "adaptive"
-    page.theme_mode = ft.ThemeMode.DARK
+    page.theme_mode = ft.ThemeMode.LIGHT
 
     # Configurar el tamaño de la ventana
     #page.window.width = 650  
