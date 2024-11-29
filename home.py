@@ -9,7 +9,7 @@ from cesta import cartView
 from tickets import ticketView
 from graficas import chartView
 
-def main(page: ft.Page):
+def home_main(page: ft.Page):
     page.title = "<Compra Lista>"
     page.scroll = "adaptive"
     page.theme_mode = ft.ThemeMode.DARK
@@ -91,4 +91,4 @@ def main(page: ft.Page):
     page.add(layout)
 
 # Ejecutar el servidor web
-ft.app(target=main)
+ft.app(target=home_main)
