@@ -1,44 +1,92 @@
 import flet as ft
-import os 
-from home import home_main 
+from categorias import categoryView
+from establecimientos import storeView
+from productos import productView
+from listaproductos import productListView
+from cesta import cartView
+from tickets import ticketView
+from graficas import chartView
 
-# Obtener la contraseña desde la variable de entorno
-PASSWORD = os.getenv("APP_PASSWORD_DOV", "defaultPassword") 
+def home_main(page: ft.Page):
+    page.title = "<Compra Lista>"
+    page.scroll = "adaptive"
+    page.theme_mode = ft.ThemeMode.DARK
 
-def main(page: ft.Page):
-    page.title = "Aplicación Protegida"
+    # Eliminar la configuración del tamaño de la ventana ya que no es válida en entornos web
+    # if not page.web:  # Esta comprobación asegura que no intentes usar page.window en la web
+    #    page.window_width = 650  
+    #    page.window_height = 768  
 
-    # Función de autenticación
-    def verificar_password(e):
-        if password_input.value == PASSWORD:
-            print("Contraseña correcta")
-            page.clean()
-            home_main(page)
-        else:
-            error_message.value = "Contraseña incorrecta"
-            page.update()  
+    # Contenedor para el contenido dinámico
+    content_container = ft.Column()
 
-    # Elementos de la pantalla de login
-    password_input = ft.TextField(password=True, hint_text="Introduce la contraseña")
-    error_message = ft.Text(value="", color="red")
-    login_button = ft.ElevatedButton(text="Acceder", on_click=verificar_password)
+    # Función para cambiar el contenido principal
+    def show_component(component, selected_tab_index=None):
+        content_container.controls.clear()
+        content_container.controls.append(component)
+        page.update()
 
-    # Contenedor para el formulario de login
-    login_form = ft.Column(
-        [
-            ft.Text("Acceso Restringido", size=24, weight="bold"),
-            password_input,
-            error_message,
-            login_button,
+        # Solo cambiar de pestaña si se pasa el índice de la pestaña seleccionada
+        if selected_tab_index is not None:
+            tabs.selected_index = selected_tab_index 
+            page.update()
+
+    # Función para abrir la vista de edición desde cualquier componente
+    def edit_product_from_menu(product_id, category_id):
+        from productos import productView  
+        show_component(productView(page, product_id, category_id), selected_tab_index=3)
+
+    # Exponer la función a otras vistas
+    page.edit_product_from_menu = edit_product_from_menu
+
+    # Función para manejar el cambio de pestaña
+    def on_tab_change(e):
+        if e.control.selected_index == 0:
+            show_component(chartView(page), selected_tab_index=0)
+        elif e.control.selected_index == 1:
+            show_component(productListView(page))
+        elif e.control.selected_index == 2:
+            show_component(cartView(page))
+        elif e.control.selected_index == 3:
+            show_component(ticketView(page))  
+        elif e.control.selected_index == 4:
+            show_component(productView(page))  
+        elif e.control.selected_index == 5:
+            show_component(categoryView(page))
+        elif e.control.selected_index == 6:
+            show_component(storeView(page))
+
+    # Barra de navegación con Tabs
+    tabs = ft.Tabs(
+        selected_index=0,  
+        tabs=[  
+            ft.Tab(text="Estadísticas"),
+            ft.Tab(text="Lista Productos"),
+            ft.Tab(text="Cesta"),
+            ft.Tab(text="Tickets"),
+            ft.Tab(text="Productos"),
+            ft.Tab(text="Categorías"),
+            ft.Tab(text="Establecimientos"),
         ],
-        alignment=ft.MainAxisAlignment.CENTER,
-        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-        spacing=20,
+        expand=True, 
+        on_change=on_tab_change 
     )
 
-    # Añadir el formulario de login a la página al inicio
-    page.add(login_form)
-    page.update() 
+    # Layout principal
+    layout = ft.Column(
+        [
+            tabs,  
+            ft.Divider(thickness=1, height=5), 
+            ft.Container(content_container, expand=True, padding=10), 
+        ],
+        expand=True,
+    )
 
-# Ejecutar el servidor web
-ft.app(target=main)
+    # Mostrar Categorías al iniciar
+    show_component(chartView(page))
+
+    # Añadir el layout al 'page'
+    page.add(layout)
+
+# Ejecutar la aplicación
+ft.app(target=home_main)
