@@ -8,14 +8,16 @@ PASSWORD = os.getenv("APP_PASSWORD_DOV", "defaultPassword")  # "defaultPassword"
 def main(page: ft.Page):
     print("La aplicación está arrancando...")
     
-    page.title = "Compra Lista DoV"
+    page.title = "Aplicación Protegida"
     
     # Función de autenticación
     def verificar_password(e):
         if password_input.value == PASSWORD:
             login_form.visible = False  # Ocultar el formulario de login
-            home_main(page)  # Llamar a la función main de home.py para cargar la vista principal
-            page.update()  # Actualizar la página
+            page.update()  # Asegurarse de que se actualice la página después de ocultar el formulario
+
+            # Mostrar el contenido principal (home.py)
+            home_main(page)  # Llamar a la función 'main' de home.py para cargar la vista principal
         else:
             error_message.value = "Contraseña incorrecta"
             page.update()
