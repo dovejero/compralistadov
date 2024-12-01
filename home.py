@@ -15,8 +15,8 @@ def home_main(page: ft.Page):
     page.theme_mode = ft.ThemeMode.LIGHT
 
     # Configurar el tamaño de la ventana
-    #page.window.width = 650  
-    #page.window.height = 768  
+    page.window.width = 650  
+    page.window.height = 768  
 
     # Contenedor para el contenido dinámico
     content_container = ft.Column()
